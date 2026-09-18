@@ -1,0 +1,25 @@
+name: Build Fortune Wheel APK
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build HTML to APK
+        uses: JavenLu/html2apk-action@v1
+        with:
+          app_name: "命运大转盘"
+          package_name: "com.lyh.fortunewheel"
+          version_name: "1.0.0"
+          version_code: "1"
+          html_file: "index.html"
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
