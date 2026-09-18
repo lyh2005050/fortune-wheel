@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>命运大转盘</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { min-height:100vh; background:linear-gradient(135deg,#667eea,#764ba2); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; }
+h1 { color:white; margin-bottom:30px; font-family:sans-serif; }
+.wrap { position:relative; width:320px; height:320px; margin-bottom:30px; }
+.wheel { width:100%; height:100%; border-radius:50%; border:8px solid white; box-shadow:0 0 30px rgba(0,0,0,0.3); transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99);
+background: conic-gradient(#ff6b6b 0deg 45deg, #feca57 45deg 90deg, #48dbfb 90deg 135deg, #1dd1a1 135deg 180deg, #5f27cd 180deg 225deg, #ff9ff3 225deg 270deg, #54a0ff 270deg 315deg, #00d2d3 315deg 360deg);
+}
+.pointer { position:absolute; top:-15px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-top:35px solid #ff3366; z-index:10; }
+.wheel span { position:absolute; color:white; font-weight:bold; font-family:sans-serif; font-size:18px; }
+.s1 { top:15%; left:50%; transform:translateX(-50%); }
+.s2 { top:30%; right:15%; }
+.s3 { bottom:30%; right:12%; }
+.s4 { bottom:15%; left:50%; transform:translateX(-50%); }
+.s5 { bottom:30%; left:12%; }
+.s6 { top:30%; left:15%; }
+.s7 { top:50%; right:8%; }
+.s8 { top:50%; left:8%; }
+button { padding:15px 50px; font-size:1.2em; border:none; border-radius:50px; background:white; color:#764ba2; font-weight:bold; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,0.2); }
+.result { margin-top:25px; color:white; font-size:1.5em; font-weight:bold; font-family:sans-serif; }
+</style>
+</head>
+<body>
+<h1>命运大转盘</h1>
+<div class="wrap">
+<div class="pointer"></div>
+<div class="wheel" id="wheel">
+<span class="s1">吃火锅</span>
+<span class="s2">吃烧烤</span>
+<span class="s3">喝奶茶</span>
+<span class="s4">吃汉堡</span>
+<span class="s5">吃日料</span>
+<span class="s6">吃面条</span>
+<span class="s7">吃披萨</span>
+<span class="s8">吃沙县</span>
+</div>
+</div>
+<button onclick="spin()">开始转盘！</button>
+<div class="result" id="res"></div>
+<script>
+const items = ["吃火锅","吃烧烤","喝奶茶","吃汉堡","吃日料","吃面条","吃披萨","吃沙县"];
+let rot = 0;
+function spin(){
+const idx = Math.floor(Math.random()*8);
+rot += 360*5 + (360 - idx*45 - 22.5);
+document.getElementById('wheel').style.transform = `rotate(${rot}deg)`;
+setTimeout(()=>{
+document.getElementById('res').innerText = "👉 就选："+items[idx]+"！";
+},4100);
+}
+</script>
+</body>
+</html>
